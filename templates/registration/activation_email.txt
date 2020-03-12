@@ -3,7 +3,7 @@
 {% blocktrans with site_name=site.name %}
   Dear {{user}}
 
-  Thank you for registering at FIRST® LEGO® League South India!
+  Thank you for registering at Human Focus!
 {% endblocktrans %}
 
 {% blocktrans with site_name=site.name %}

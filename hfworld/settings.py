@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'crispy_forms',
+    'accounts',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +58,9 @@ ROOT_URLCONF = 'hfworld.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -165,10 +169,10 @@ EMAIL_HOST_PASSWORD = '3Af3%!E2Bd7r'
 EMAIL_PORT = 587
 
 # Registration Redux Settings
-# REGISTRATION_FORM = 'accounts.forms.MyRegForm'
+REGISTRATION_FORM = 'accounts.forms.MyRegForm'
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 REGISTRATION_AUTO_LOGIN = False # Automatically log the user in
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/dashboard'
 REGISTRATION_DEFAULT_FROM_EMAIL = 'codenjump@gmail.com'
 
 # Crispy form

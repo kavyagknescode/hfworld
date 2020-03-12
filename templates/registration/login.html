@@ -6,98 +6,43 @@
 {% block title %}{% trans "Log in" %}{% endblock %}
 
 {% block content %}
+<div class="container cards-section">
+<div class="row">
+<div class="card logout" style="width: 18rem;">
 
-<style>
-    body {
-    height: 100%;
-    color: black;
-    font-family: 'Roboto', sans-serif;
-    /* background-image: url(https://supaulone.s3.amazonaws.com/public/fllindiabackground.jpg); */
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    padding-top: 50px;
-    }
+  <div class="card-body">
+    <h3 class="card-title"><center> Sign In </center></h3>
+  <br>
 
-.text-muted {
-    color: #ffffff!important;
-}
+  <form method="POST" action="">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input class="btn btn-sm btn-block btn-primary" type="submit" value="{% trans 'Log in' %}" />
+      <input type="hidden" name="next" class="btn btn-primary" value="{{ next }}" />
 
-.dash-link {
-  font-size: 21px;
-  color: black;
-}
+      <p>{% trans "Forgot your password?" %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.</p>
+      <p>{% trans "Not a member?" %} <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>.</p>
+  </form>
 
-.dash-link:hover {
-  text-decoration: none;
-}
-
-.sup {
-  vertical-align: super;
-}
-
-.span1 {
-  display: inline-block;
-  margin-left: -8px;
-  font-size: 18px;
-  vertical-align: super;
-}
-
-.span2 {
-  display: inline-block;
-  margin-left: -14px;
-  font-size: 18px;
-  vertical-align: super;
-}
-
-
-</style>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 offset-md-2 homeintro-section">
-        <h2>Welcome to FIRST
-          <p class="span1"><span class="sup">&reg;</span> </p>
-          LEGO
-          <p class="span2"><span class="sup">&reg;</span></p>
-          League South India</h2>
-        <div class="log-sign-in">
-          {% if request.user.is_authenticated %}
-            <div class="row">
-              <div class="col-md-4 offset-md-4">
-<a class="dash-link" href="{% url 'dashboard:coach-dashboard' %}">Go to Dashboard</a>
-              </div>
-            </div>
-        </div>
-      </div>
-    </div>
+<!-- <form>
+  <div class="form-group">
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Email address">
   </div>
 
-    {% else %}
-      <div class="container">
-        <div class="login-head">
-          <div class="row">
-            <div class="col-md-4 offset-md-4">
-              <h3>Log In</h3>
-            </div>
-          </div>
-        </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Password">
+  </div>
 
-        <div class="row">
-          <div class="col-md-6 offset-md-3">
-            <form method="POST" action="">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <input class="btn btn-sm btn-block btn-primary" type="submit" value="{% trans 'Log in' %}" />
-                <input type="hidden" name="next" class="btn btn-primary" value="{{ next }}" />
+  <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+  <br><br>
+  <label class="form-check-label" for="exampleCheck1">Don't have an account?</label><br>
+  <a href="update.html" class="text-primary">Register Now</a>
 
-                <p>{% trans "Forgot your password?" %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.</p>
-                <p>{% trans "Not a member?" %} <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>.</p>
-            </form>
+</form> -->
 
-          </div>
-        </div>
-
-      </div>
-    {% endif %}
+</div>
+</div>
+</div>
+</div>
 
 {% endblock %}
