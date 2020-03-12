@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Log in" %}{% endblock %}
+
+{% block content %}
+<div class="container cards-section">
+<div class="row">
+<div class="card logout" style="width: 18rem;">
+
+  <div class="card-body">
+    <h3 class="card-title"><center> Sign In </center></h3>
+  <br>
+
+  <form method="POST" action="">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input class="btn btn-sm btn-block btn-primary" type="submit" value="{% trans 'Log in' %}" />
+      <input type="hidden" name="next" class="btn btn-primary" value="{{ next }}" />
+
+      <p>{% trans "Forgot your password?" %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.</p>
+      <p>{% trans "Not a member?" %} <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>.</p>
+  </form>
+
+<!-- <form>
+  <div class="form-group">
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Email address">
+  </div>
+
+  <div class="form-group">
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Password">
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+  <br><br>
+  <label class="form-check-label" for="exampleCheck1">Don't have an account?</label><br>
+  <a href="update.html" class="text-primary">Register Now</a>
+
+</form> -->
+
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}
