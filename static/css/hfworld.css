@@ -1,0 +1,77 @@
+/* navbar section */
+
+.homepage-section{
+	padding-right: 8px;
+}
+
+/* jumbotron section */
+
+.jumbotron-section{
+	padding-top: 60px;
+	padding-bottom: 60px;
+}
+
+/* card page */
+
+.card-section{
+    padding-top: 60px;
+}
+
+/* body color */
+.body-section{
+	background-color: coral;
+}
+
+.head-section{
+	padding: 60px;
+	margin: auto;
+}
+
+.cards-section{
+	padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.color-section{
+	background-color: #B8C2B9;
+}
+
+.notification-section{
+	padding-left: 8px;
+}
+
+
+.fromc{
+    background-color: #E8ECB4;
+	margin: auto;
+}
+
+ .topnav-centered a {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+
+  .logout{
+	margin: auto;
+}
+
+  .space{
+	  padding-top: 60px;
+  }
+
+.heading-section{
+    padding-top: 60px;
+
+}
+
+.title-section{
+    padding-top: 60px;
+	padding-bottom: 60px;
+	background-color: #D5E7CC;
+}
+
+.table{
+	padding:60px;
+}

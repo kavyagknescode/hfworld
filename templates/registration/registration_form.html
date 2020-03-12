@@ -1,0 +1,28 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Register for an account" %}{% endblock %}
+
+{% block content %}
+
+<div class="container cards-section">
+<div class="row">
+<div class="card logout" style="width: 18rem;">
+
+  <div class="card-body">
+    <h3 class="card-title"><center> Sign Up </center></h3>
+  <br>
+
+  <form method="POST" action="">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input class="btn btn-block btn-primary" type="submit" value="{% trans 'Submit' %}" />
+  </form>
+
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}
