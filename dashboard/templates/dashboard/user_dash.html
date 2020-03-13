@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Log in" %}{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2>Dashboard</h2>
+        <h6>Name: {{user_data.first_name}} {{user_data.last_name}}</h6>
+      </div>
+    </div>
+  </div>
+{% endblock %}
