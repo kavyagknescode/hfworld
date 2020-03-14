@@ -15,5 +15,4 @@ build/
 tests/report/
 venv/
 media/
-
 local.py
