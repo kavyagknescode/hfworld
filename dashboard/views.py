@@ -9,6 +9,9 @@ from dashboard.models import UserDetails
 from dashboard.forms import UserDetailsForm
 
 # Create your views here.
+def home(request):
+    return render(request, 'dashboard/home.html')
+
 def dash_view(request):
     check_user = UserDetails.objects.filter(user_uname=request.user) # checking if user has filled up details
 
