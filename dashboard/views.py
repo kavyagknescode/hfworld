@@ -45,3 +45,26 @@ def save_user_details(request,pk):
         print('non post method')
         form = UserDetailsForm()
         return render(request, 'dashboard/add_profile.html', {'form':form})
+
+def edit_user_details(request,id):
+    user_data = UserDetails.objects.get(id=id)
+    return render(request, 'dashboard/edit_profile.html', {'user_data':user_data})
+
+def save_edited_details(request,id):
+    new_data = UserDetails.objects.get(id=id)
+    if request.method == 'POST':
+        new_data.user_uname = request.user
+        new_data.first_name = request.POST['fname']
+        new_data.last_name = request.POST['lname']
+        new_data.email = request.POST['email']
+        new_data.phone = request.POST['phone']
+
+        try:
+            validate_email(new_data.email)
+        except ValidationError:
+            messages.error(request, "Enter a Valid Email")
+
+        new_data.save()
+        return redirect('dashboard:user-dashboard')
+    else:
+        return redirect('dashboard:user-dashboard')

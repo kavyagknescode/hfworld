@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Log in" %}{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row pt-4">
+      <div class="col-md-6 offset-md-3">
+        <form action="{% url 'dashboard:save-edited-profile' user_data.id %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="form-group form-group-md">
+            <label for="fname">First Name</label>
+            <input class="form-control" id="fname" name="fname" type="text" value="{{user_data.first_name}}">
+
+            <label for="lname">Last Name</label>
+            <input class="form-control" id="lname" name="lname" type="text" value="{{user_data.last_name}}">
+
+            <label for="tagline">Email</label>
+            <input class="form-control" id="email" name="email" type="text" value="{{user_data.email}}" required>
+
+            <label for="tagline">Contact Number</label>
+            <input class="form-control" id="phone" name="phone" type="text" value="{{user_data.phone}}" required>
+
+          </div>
+          <button type="submit" class="btn btn-md btn-success">Save</button>
+          <p></p>
+
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

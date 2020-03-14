@@ -14,7 +14,7 @@ class UserDetails(models.Model):
     inv_address = models.CharField(verbose_name="Invoice Address", max_length=255, blank=True)
     inv_city = models.CharField(verbose_name="Invoice City", max_length=100, blank=True)
     inv_state = models.CharField(verbose_name="Invoice State", max_length=100, blank=True)
-    inv_pin = models.IntegerField(verbose_name="Invoice Pin", blank=True)
+    inv_pin = models.IntegerField(verbose_name="Invoice Pin", blank=True,)
 
     del_address = models.CharField(verbose_name="Delivery Address", max_length=255, blank=True)
     del_city = models.CharField(verbose_name="Delivery City", max_length=100, blank=True)
