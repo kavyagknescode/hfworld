@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <h3 class="pay-heading">Please Pay in order to Proceed</h3>
+        <div class="pay">
+          <form action="#" method="POST">
+            {% csrf_token %}
+            <!-- Note that the amount is in paise = 50 INR -->
+              <script
+                  src="https://checkout.razorpay.com/v1/checkout.js"
+                  data-key="rzp_test_0bogBh0wb4NS1C"
+                  data-amount="{{ amt }}"
+                  data-buttontext="Pay to Human Focus"
+                  data-name="Pay to Human Focus"
+                  data-description="TEST PURCHASE"
+                  data-image="https://your-awesome-site.com/your_logo.jpg"
+                  data-prefill.name="{{ user.first_name }} {{ user.last_name }}"
+                  data-prefill.email="{{ user.email }}"
+                  data-theme.color="#F37254"
+                  data-modal.backdropclose="true"
+                  data-modal.escape="true"
+              ></script>
+              <input type="hidden" value="Hidden Element" name="hidden">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

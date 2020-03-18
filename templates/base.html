@@ -4,14 +4,84 @@
 <html lang="en" dir="ltr">
   <head>
     {% include 'includes/head.html' %}
+
+    <title>
+      {% block title %}
+      {% endblock %}
+    </title>
+
   </head>
 
   <body>
-    {% include 'includes/navbar.html' %}
 
-    {% block content %}
-    {% endblock %}
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+      {% include 'includes/navbar.html' %}
 
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- wrapper  -->
+        <!-- ============================================================== -->
+        <div class="dashboard-wrapper">
+            <div class="dashboard-ecommerce">
+                <div class="container-fluid dashboard-content ">
+
+                  {% block content %}
+                  {% endblock %}
+
+                    <!-- ============================================================== -->
+                    <!-- pageheader  -->
+                    <!-- ============================================================== -->
+                    <!-- <div class="row">
+
+                    </div> -->
+                    <!-- ============================================================== -->
+                    <!-- end pageheader  -->
+                    <!-- ============================================================== -->
+
+                    <!-- <div class="ecommerce-widget">
+
+                        <div class="row">
+
+                        </div>
+
+                        <div class="row">
+
+                        </div>
+
+                        <div class="row">
+
+                        </div>
+
+                        <div class="row">
+
+                        </div>
+
+                        <div class="row">
+
+                        </div>
+
+                        <div class="row">
+
+
+                        </div>
+
+                    </div> -->
+
+                    <!-- ecommerce-widget end -->
+
+                </div>
+            </div>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- end wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- end main wrapper  -->
     {% include 'includes/js.html' %}
   </body>
 </html>

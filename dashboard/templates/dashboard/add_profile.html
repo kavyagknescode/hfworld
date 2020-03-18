@@ -3,54 +3,21 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block title %}{% trans "Log in" %}{% endblock %}
+{% block title %}{% trans "Add Profile" %}{% endblock %}
 
 {% block content %}
-<div class="container cards-section">
-<div class="logout" style="width: 18rem;">
-<h2 align="center">Update Profile</h2><br>
-<div class="row">
-  <form class="" action="{% url 'dashboard:add-profile' user.pk %}" method="POST">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-primary btn-block">Submit</button>
-  </form>
-<!-- <form>
-  <center>
-    <div class="form-row">
-       <div class="col">
-         <input type="text" class="form-control" placeholder="First name">
-       </div>
-       <div class="col">
-         <input type="text" class="form-control" placeholder="Last name">
-       </div>
+
+  <div class="container cards-section">
+    <div class="logout" style="width: 18rem;">
+      <h2 align="center">Update Profile</h2><br>
+      <div class="row">
+        <form class="" action="{% url 'dashboard:add-profile' user.pk %}" method="POST">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+      </div>
     </div>
-
-    <div class="form-row">
-
-    </div>
-
-   <br>
-
-   <div class="form-group">
-    <center><input type="text" class="form-control" id="inputAddress" placeholder="Address one"></center>
-   </div>
-
-   <div class="form-group">
-     <input type="text" class="form-control" id="inputAddress2" placeholder="Address two">
-   </div>
-
-   <div class="form-group">
-     <div class="form-check">
-
-     </div>
-   </div>
-
-    <button type="submit" class="btn btn-primary btn-block">Submit</button>
-  </center>
-</form> -->
-</div>
-</div>
-</div>
+  </div>
 
 {% endblock %}

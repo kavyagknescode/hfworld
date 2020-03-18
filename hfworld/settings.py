@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'accounts',
     'dashboard',
+    'subscription',
 ]
 
 MIDDLEWARE = [
