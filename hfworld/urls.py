@@ -28,5 +28,6 @@ urlpatterns = [
 
     path('accounts/', include('registration.backends.default.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('subscriptions/', include('subscription.urls')),
 
 ]

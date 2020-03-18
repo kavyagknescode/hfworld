@@ -8,17 +8,31 @@ from django.core.validators import validate_email
 from dashboard.models import UserDetails
 from dashboard.forms import UserDetailsForm
 
+import razorpay
+
+#kuntal.karmakar19@gmail.com account
+client = razorpay.Client(auth=("rzp_test_0bogBh0wb4NS1C", "AioV8HdqfiSWWbUepUjj9BL2"))
+paid = client.payment.all()
+
 # Create your views here.
 def home(request):
     return render(request, 'dashboard/home.html')
 
-def dash_view(request):
+def dashboard(request):
+    l1 = []
+    for num in range(0,paid['count']):
+        if paid['items'][num]['email']==request.user.email and paid['items'][num]['status']=='authorized':
+            amount = paid['items'][num]['amount'] / 100
+            l1.append(amount)
+    return render(request, 'dashboard/dashboard.html', {'packs':l1})
+
+def profile_view(request):
     check_user = UserDetails.objects.filter(user_uname=request.user) # checking if user has filled up details
 
     if check_user:
         print('has data')
         user_data = UserDetails.objects.get(user_uname=request.user)
-        return render(request, 'dashboard/user_dash.html',{'user_data':user_data,})
+        return render(request, 'dashboard/user_profile.html',{'user_data':user_data,})
 
     else:
         print('no data')
