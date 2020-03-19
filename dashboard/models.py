@@ -23,3 +23,14 @@ class UserDetails(models.Model):
 
     def __str__(self):
         return (self.user_uname)
+
+
+class CandidateDetails(models.Model):
+    name = models.CharField('Full Name', max_length=255)
+    degree = models.CharField('Degree', max_length=255, blank=True)
+    stream = models.CharField('Stream', max_length=255, blank=True)
+    location = models.CharField('Current Location of the Candidate', max_length=255, blank=True)
+    resume = models.FileField(upload_to = 'candidate/%Y/%m/', help_text="Upload PDF File Only")
+
+    def __str__(self):
+        return self.name

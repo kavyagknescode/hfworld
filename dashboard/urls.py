@@ -10,4 +10,8 @@ urlpatterns = [
     path('edit-profile/<int:id>', views.edit_user_details, name='edit-profile'),
     path('save-edited-profile/<int:id>', views.save_edited_details, name='save-edited-profile'),
 
+
+    path('add-candidate/', views.add_candidate_view, name='add-candidate'),
+    path('show-candidates/', views.show_candidate_view, name='show-candidate'),
+
 ]

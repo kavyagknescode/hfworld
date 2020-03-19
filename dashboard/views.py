@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
-from dashboard.models import UserDetails
-from dashboard.forms import UserDetailsForm
+from dashboard.models import UserDetails, CandidateDetails
+from dashboard.forms import UserDetailsForm, CandidateDetailsForm
 
 import razorpay
 
@@ -19,12 +19,15 @@ def home(request):
     return render(request, 'dashboard/home.html')
 
 def dashboard(request):
-    l1 = []
-    for num in range(0,paid['count']):
-        if paid['items'][num]['email']==request.user.email and paid['items'][num]['status']=='authorized':
-            amount = paid['items'][num]['amount'] / 100
-            l1.append(amount)
-    return render(request, 'dashboard/dashboard.html', {'packs':l1})
+    if request.user.is_superuser:
+        return render(request, 'dashboard/admin_dash.html')
+    else:
+        l1 = []
+        for num in range(0,paid['count']):
+            if paid['items'][num]['email']==request.user.email and paid['items'][num]['status']=='authorized':
+                amount = paid['items'][num]['amount'] / 100
+                l1.append(amount)
+        return render(request, 'dashboard/dashboard.html', {'packs':l1})
 
 def profile_view(request):
     check_user = UserDetails.objects.filter(user_uname=request.user) # checking if user has filled up details
@@ -85,3 +88,26 @@ def save_edited_details(request,id):
         return redirect('dashboard:user-dashboard')
     else:
         return redirect('dashboard:user-dashboard')
+
+def add_candidate_view(request):
+    form = CandidateDetailsForm()
+
+    if request.method == 'POST':
+        print('Post Method')
+        form = CandidateDetailsForm(request.POST, request.FILES)
+        if form.is_valid():
+            print('Valid form')
+            candidate = form.save(commit=False)
+            candidate.save()
+            return redirect('dashboard:show-candidate')
+
+        else:
+            print(form.errors)
+            return render(request, 'dashboard/add_candidate.html', {'form':form})
+
+    else:
+        return render(request, 'dashboard/add_candidate.html', {'form':form})
+
+def show_candidate_view(request):
+    candidates = CandidateDetails.objects.all()
+    return render(request, 'dashboard/show_candidate.html', {'candidates':candidates})
