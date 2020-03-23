@@ -14,4 +14,7 @@ urlpatterns = [
     path('add-candidate/', views.add_candidate_view, name='add-candidate'),
     path('show-candidates/', views.show_candidate_view, name='show-candidate'),
 
+    path('add-subscription/', views.add_subscription_view, name='add-subscription'),
+    path('show-subscription/', views.show_subscription_view, name='show-subscription'),
+
 ]

@@ -6,61 +6,57 @@
 {% block title %}{% trans "Candidate" %}{% endblock %}
 
 {% block content %}
-<div class="container">
-  <div class="row cards-section">
-    <h2><center>Resume</center></h2>
-  </div>
-</div>
-<div class="container">
+<!-- ============================================================== -->
+<!-- pageheader  -->
+<!-- ============================================================== -->
 <div class="row">
-  <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Education</th>
-      <th scope="col">Location</th>
-      <th scope="col">Download</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Jennifer Pinsker</td>
-      <td>BTech</td>
-      <td>Andhra Pradesh</td>
-      <td>    </td>
-    </tr>
-    <tr>
-      <td>Bob Robson</td>
-      <td>BTech</td>
-      <td>Andhra Pradesh</td>
-      <td>    </td>
-    </tr>
-    <tr>
-      <td>Michael Robinson</td>
-      <td>BTech</td>
-      <td>Andhra Pradesh</td>
-      <td>    </td>
-    </tr>
-    <tr>
-      <td>Jennifer Pinsker</td>
-      <td>BTech</td>
-      <td>Andhra Pradesh</td>
-      <td>  </td>
-    </tr>
-    <tr>
-      <td>John Boo</td>
-      <td>BTech</td>
-      <td>Andhra Pradesh</td>
-      <td>          </td>
-    </tr>
-    <tr>
-      <td>Michael Robinson</td>
-      <td>BTech</td>
-      <td>Andhra Pradesh</td>
-      <td>    </td>
-    </tr>
-    </tbody>
-    </table>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">List of Candidates</h2>
+            <!-- <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p> -->
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- end pageheader  -->
+<!-- ============================================================== -->
+
+<div class="row">
+  <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+    <div class="card">
+        <h5 class="card-header">Candidate Details</h5>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-light">
+                        <tr class="border-0">
+                            <th class="border-0">Name</th>
+                            <th class="border-0">Degree</th>
+                            <th class="border-0">Stream</th>
+                            <th class="border-0">Location</th>
+                            <th class="border-0">Resume</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for i in candidates %}
+                        <tr>
+                            <td>{{ i.name }} </td>
+                            <td>{{ i.degree }} </td>
+                            <td>{{ i.stream }} </td>
+                            <td>{{ i.location }} </td>
+                            {% if i.resume %}
+                              <td><a href="{{ i.resume.url }}" target="_blank">View Resume</a></td>
+                            {% else %}
+                              <td><a href="">No File Found</a></td>
+                            {% endif %}
+                        </tr>
+                      {% endfor %}
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
   </div>
 </div>
 

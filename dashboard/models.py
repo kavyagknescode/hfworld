@@ -22,7 +22,7 @@ class UserDetails(models.Model):
     del_pin = models.IntegerField(verbose_name="Delivery Pin", blank=True)
 
     def __str__(self):
-        return (self.user_uname)
+        return (self.first_name)
 
 
 class CandidateDetails(models.Model):
@@ -34,3 +34,14 @@ class CandidateDetails(models.Model):
 
     def __str__(self):
         return self.name
+
+class Subscription(models.Model):
+    """
+    Add Subscription Pack by Admin
+    """
+    pack_name = models.CharField('Subscription Name', max_length=255)
+    price = models.CharField('Subscription Price', max_length=255)
+    no_resume = models.IntegerField('No. of Resume User can Access')
+
+    def __str__(self):
+        return self.pack_name

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from dashboard.models import UserDetails
+from dashboard.models import UserDetails, CandidateDetails, Subscription
 from .models import UserSubscription
 
 import razorpay
@@ -12,7 +12,8 @@ paid = client.payment.all()
 
 # Create your views here.
 def subscription_view(request):
-    return render(request, 'subscription/sub_list.html')
+    subscriptions = Subscription.objects.all()
+    return render(request, 'subscription/user_show_subscription.html', {'subscriptions':subscriptions})
 
 @login_required
 def buy_subscription(request,amt):
@@ -28,18 +29,18 @@ def view_candidates(request):
     """
     if paid['count'] == 0:
         print('no transaction')
-        return render(request, 'subscription/sub_list.html')
+        subscriptions = Subscription.objects.all()
+        return render(request, 'subscription/user_show_subscription.html', {'subscriptions':subscriptions})
 
     else:
         print('has transaction')
         for num in range(0,paid['count']):
             print('already paid')
-            print(paid['count'])
             """
             For paid users
             """
-            if paid['items'][num]['email']==request.user.email and paid['items'][num]['status']=='authorized':
-                print(client.payment.fetch(paid['items'][num]['id']))
+            if paid['items'][num]['email'] == request.user.email and paid['items'][num]['status'] == 'authorized':
+                # print(client.payment.fetch(paid['items'][num]['id']))
                 # # Capture amount in paise
                 # if paid['items'][num]['captured'] == False :
                 #     client.payment.capture(paid['items'][num]['id'], "20000")
@@ -48,17 +49,15 @@ def view_candidates(request):
                 user_sub = UserSubscription(user_uname=request.user, sub_pack=paid['items'][num]['amount'])
                 user_sub.save()
 
-                print("Go to View Resume")
-                return render(request, 'subscription/candidates.html',)
+                candidates = CandidateDetails.objects.all()
+                return render(request, 'subscription/candidates.html', {'candidates':candidates})
 
             else:
                 """
                 If payment is not successful
                 """
                 print('no payment')
-                print(paid)
-                return render(request, 'subscription/sub_list.html')
-                # return redirect('subscription:buy-subscription')
+                return redirect('subscription:subscription-view')
 
 def SubscribedPack(request):
     l1 = []

@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
-from dashboard.models import UserDetails, CandidateDetails
-from dashboard.forms import UserDetailsForm, CandidateDetailsForm
+from dashboard.models import UserDetails, CandidateDetails, Subscription
+from dashboard.forms import UserDetailsForm, CandidateDetailsForm, SubscriptionForm
 
 import razorpay
 
@@ -24,7 +24,7 @@ def dashboard(request):
     else:
         l1 = []
         for num in range(0,paid['count']):
-            if paid['items'][num]['email']==request.user.email and paid['items'][num]['status']=='authorized':
+            if paid['items'][num]['email'] == request.user.email and paid['items'][num]['status'] == 'authorized':
                 amount = paid['items'][num]['amount'] / 100
                 l1.append(amount)
         return render(request, 'dashboard/dashboard.html', {'packs':l1})
@@ -43,8 +43,6 @@ def profile_view(request):
         return render(request, 'dashboard/add_profile.html', {'form':form})
 
 def save_user_details(request,pk):
-    # form = UserDetailsForm()
-    # return render(request, 'dashboard/add_profile.html', {'form':form})
 
     if request.method == 'POST':
         print('post method')
@@ -58,7 +56,6 @@ def save_user_details(request,pk):
             return redirect('dashboard:user-dashboard')
         else:
             print('invalid form')
-            print (form.errors)
             form = UserDetailsForm()
             return render(request, 'dashboard/add_profile.html', {'form':form})
     else:
@@ -111,3 +108,24 @@ def add_candidate_view(request):
 def show_candidate_view(request):
     candidates = CandidateDetails.objects.all()
     return render(request, 'dashboard/show_candidate.html', {'candidates':candidates})
+
+def add_subscription_view(request):
+    form = SubscriptionForm()
+
+    if request.method == 'POST':
+        form = SubscriptionForm(request.POST)
+        if form.is_valid():
+            subs = form.save(commit=False)
+            subs.save()
+            return redirect('dashboard:show-subscription')
+
+        else:
+            return render(request, 'dashboard/add_subscription.html', {'form':form})
+
+    else:
+        return render(request, 'dashboard/add_subscription.html', {'form':form})
+
+
+def show_subscription_view(request):
+    subscriptions = Subscription.objects.all()
+    return render(request, 'dashboard/show_subscription.html', {'subscriptions':subscriptions})
