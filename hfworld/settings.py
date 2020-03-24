@@ -65,6 +65,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.media',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -144,7 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -166,7 +167,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'codenjump@gmail.com'
-EMAIL_HOST_PASSWORD = '3Af3%!E2Bd7r'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 
 # Registration Redux Settings

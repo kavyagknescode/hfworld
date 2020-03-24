@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Show Candidates" %}{% endblock %}
+
+{% block content %}
+<!-- ============================================================== -->
+<!-- pageheader  -->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">All Subscriptions</h2>
+            <!-- <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p> -->
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- end pageheader  -->
+<!-- ============================================================== -->
+
+  <div class="container">
+    <div class="card-deck mb-2 text-center">
+
+      <div class="row">
+
+        {% for i in subscriptions %}
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ i.pack_name }}</h4>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>{{ i.no_resume }} Resume to Download</li>
+                  <li>Unlimited Access to Our Blog</li>
+                  <li>Price &#8377 {{ i.price }}</li>
+                </ul>
+                  <a href="{% url 'subscription:buy-subscription' amt=i.price %}"><button type="button" class="btn btn-lg btn-primary">Subscribe now</button></a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  </div>
+
+
+{% endblock %}

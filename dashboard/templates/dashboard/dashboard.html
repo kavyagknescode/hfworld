@@ -36,11 +36,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                      {% for i in packs %}
+                      {% for price,resume in packs.items %}
                         <tr>
-                            <td>{{ i }} </td>
-                            <td>{{ i }} </td>
-                            <td><a href="#">View Candidates</a></td>
+                            <td>{{ price }} </td>
+                            <td>{{ resume }} </td>
+                            <td><a href="{% url 'subscription:view-candidates' %}">View Candidates</a></td>
                         </tr>
                       {% endfor %}
                         <tr>

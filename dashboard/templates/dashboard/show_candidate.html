@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block title %}{% trans "Candidate" %}{% endblock %}
+{% block title %}{% trans "Show Candidates" %}{% endblock %}
 
 {% block content %}
 <!-- ============================================================== -->
@@ -22,7 +22,7 @@
 <!-- ============================================================== -->
 
 <div class="row">
-  <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+  <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12">
     <div class="card">
         <h5 class="card-header">Candidate Details</h5>
         <div class="card-body p-0">
@@ -31,6 +31,7 @@
                     <thead class="bg-light">
                         <tr class="border-0">
                             <th class="border-0">Serial No.</th>
+                            <th class="border-0">Timestamp</th>
                             <th class="border-0">Name</th>
                             <th class="border-0">Degree</th>
                             <th class="border-0">Stream</th>
@@ -42,6 +43,7 @@
                       {% for i in candidates %}
                         <tr>
                             <td>{{ forloop.counter }} </td>
+                            <td>{{ i.date_added }}</td>
                             <td>{{ i.name }} </td>
                             <td>{{ i.degree }} </td>
                             <td>{{ i.stream }} </td>
@@ -53,7 +55,9 @@
                             {% endif %}
                         </tr>
                       {% endfor %}
-
+                        <tr>
+                            <td colspan="9"><a href="{% url 'dashboard:add-candidate' %}" class="btn btn-outline-light float-right">Add Candidate</a></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -61,5 +65,6 @@
     </div>
   </div>
 </div>
+
 
 {% endblock %}
