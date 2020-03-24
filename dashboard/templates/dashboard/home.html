@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Human Focus World
+{% endblock %}
+
+
+
+{% block content %}
+
+<style>
+  .dashboard-wrapper {
+    margin-left: 0px !important;
+  }
+</style>
+
+<!-- Jumbotron section -->
+<div class="container jumbotron-section">
+  <div class="jumbotron">
+    <h1><center> HELLO WORLD </center></h1>
+      <div><center>This is a modified jumbotron that occupies the entire horizontal space of its parent.</center></div>
+  </div>
+</div>
+</body>
+
+
+<!-- Card section -->
+
+<div class="container">
+  <div class="row card-section">
+    <div class="col-md-4 text-center ">
+      <img src="image/schoolbag.png" alt="" width="32" height="32" title="Bootstrap">
+      <h2> School bag </h2>
+      <p>This section will have description about software development</p>
+    </div>
+    <div class="col-md-4 text-center">
+      <img src="image/resume.png" alt="" width="32" height="32" title="Bootstrap">
+      <h2> Resume </h2>
+      <p>This section will have description about software development</p>
+    </div>
+    <div class="col-md-4 text-center">
+      <img src="image/youtube.png" alt="" width="32" height="32" title="Bootstrap">
+      <h2> Events </h2>
+      <p>This section will have description about software development</p>
+    </div>
+  </div>
+</div><br><br><br>
+
+<!-- Card section ends -->
+
+
+<div class="container title-section">
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <a href="about.html" class="btn btn-primary">Learn More</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

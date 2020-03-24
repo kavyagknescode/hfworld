@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Dashboard" %}{% endblock %}
+
+{% block content %}
+<!-- ============================================================== -->
+<!-- pageheader  -->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">Profile</h2>
+            <!-- <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p> -->
+
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- end pageheader  -->
+<!-- ============================================================== -->
+
+<div class="row">
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+
+                  <!-- recent orders  -->
+    <!-- ============================================================== -->
+    <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">Profile Details</h5>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="bg-light">
+                            <tr class="border-0">
+                                <th class="border-0">Image</th>
+                                <th class="border-0">Full Name</th>
+                                <th class="border-0">Email</th>
+                                <th class="border-0">Contact Number</th>
+                                <th class="border-0">Candidates</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="m-r-10"><img src="{% static 'assets/images/product-pic.jpg' %}" alt="user" class="rounded" width="45"></div>
+                                </td>
+                                <td>{{user_data.first_name}} {{user_data.last_name}} </td>
+                                <td>{{user_data.email}} </td>
+                                <td>{{user_data.phone}}</td>
+                                <td><a href="{% url 'subscription:view-candidates' %}">View Candidates</a></td>
+                            </tr>
+                            <tr>
+                                <td colspan="9"><a href="{% url 'dashboard:edit-profile' user_data.id %}" class="btn btn-outline-light float-right">Edit Profile</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end recent orders  -->
+
+</div>
+  <!-- <div class="container">
+    <div class="row pt-4">
+      <div class="col-lg-8-6 offset-lg-2">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Contact Number</th>
+              <th>Edit</th>
+              <th>Candidates</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{user_data.first_name}} {{user_data.last_name}}</td>
+              <td>{{user_data.email}}</td>
+              <td>{{user_data.phone}}</td>
+              <td><a href="{% url 'dashboard:edit-profile' user_data.id %}">Edit</a></td>
+              <td><a href="{% url 'subscription:view-candidates' %}">View Candidates</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div> -->
+{% endblock %}

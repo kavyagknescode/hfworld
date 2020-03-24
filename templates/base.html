@@ -4,13 +4,52 @@
 <html lang="en" dir="ltr">
   <head>
     {% include 'includes/head.html' %}
+
+    <title>
+      {% block title %}
+      {% endblock %}
+    </title>
+
   </head>
 
   <body>
-    {% include 'includes/navbar.html' %}
 
-    {% block content %}
-    {% endblock %}
+    {% if request.user.is_authenticated %}
+      <!-- ============================================================== -->
+      <!-- main wrapper -->
+      <!-- ============================================================== -->
+
+      <div class="dashboard-main-wrapper">
+        {% include 'includes/navbar.html' %}
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- end main wrapper  -->
+      {% else %}
+
+        {% include 'includes/web_navbar.html' %}
+
+      {% endif %}
+
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- wrapper  -->
+      <!-- ============================================================== -->
+      <div class="dashboard-wrapper">
+          <div class="dashboard-ecommerce">
+              <div class="container-fluid dashboard-content ">
+
+                {% block content %}
+                {% endblock %}
+
+              </div>
+          </div>
+
+      </div>
+      <!-- ============================================================== -->
+      <!-- end wrapper  -->
+      <!-- ============================================================== -->
 
     {% include 'includes/js.html' %}
   </body>

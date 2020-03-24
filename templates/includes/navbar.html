@@ -1,44 +1,197 @@
 {% load staticfiles %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">Human focus</a>
+<!-- ============================================================== -->
+<!-- navbar -->
+<!-- ============================================================== -->
+<div class="dashboard-header">
+    <nav class="navbar navbar-expand-lg bg-white fixed-top">
+        <a class="navbar-brand" href="index.html">Human Focus</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto navbar-right-top">
+                <li class="nav-item">
+                    <div id="custom-search" class="top-search-bar">
+                        <input class="form-control" type="text" placeholder="Search..">
+                    </div>
+                </li>
+                <li class="nav-item dropdown notification">
+                    <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
+                    <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
+                        <li>
+                            <div class="notification-title"> Notification</div>
+                            <div class="notification-list">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item list-group-item-action active">
+                                        <div class="notification-info">
+                                            <div class="notification-list-user-img"><img src="assets/images/avatar-2.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                            <div class="notification-list-user-block"><span class="notification-list-user-name">Jeremy Rakestraw</span>accepted your invitation to join the team.
+                                                <div class="notification-date">2 min ago</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="notification-info">
+                                            <div class="notification-list-user-img"><img src="assets/images/avatar-3.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                            <div class="notification-list-user-block"><span class="notification-list-user-name">John Abraham </span>is now following you
+                                                <div class="notification-date">2 days ago</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="notification-info">
+                                            <div class="notification-list-user-img"><img src="assets/images/avatar-4.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                            <div class="notification-list-user-block"><span class="notification-list-user-name">Monaan Pechi</span> is watching your main repository
+                                                <div class="notification-date">2 min ago</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="notification-info">
+                                            <div class="notification-list-user-img"><img src="assets/images/avatar-5.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                            <div class="notification-list-user-block"><span class="notification-list-user-name">Jessica Caruso</span>accepted your invitation to join the team.
+                                                <div class="notification-date">2 min ago</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list-footer"> <a href="#">View all notifications</a></div>
+                        </li>
+                    </ul>
+                </li>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+              {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown nav-user">
+                    <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{% static 'assets/images/avatar-1.jpg' %}" alt="" class="user-avatar-md rounded-circle"></a>
+                    <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
+                        <div class="nav-user-info">
+                          <h5 class="mb-0 text-white nav-user-name">{{ request.user.username }} </h5>
+                        </div>
+                        <a class="dropdown-item" href="{% url 'dashboard:user-profile' %}"><i class="fas fa-user mr-2"></i>Profile</a>
+                        <a class="dropdown-item" href="{% url 'auth_logout' %}"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                    </div>
+                </li>
+              {% endif %}
+            </ul>
+        </div>
+    </nav>
+</div>
+<!-- ============================================================== -->
+<!-- end navbar -->
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.html">Home</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="stationaries.html">Services</a>
-        </li>
-      <li class="nav-item active">
-          <a class="nav-link" href="blog.html">Blog</a>
-        </li>
-      <li class="nav-item active">
-          <a class="nav-link" href="about.html">About</a>
-        </li>
-      <li class="nav-item active">
-          <a class="nav-link" href="contact.html">Contact</a>
-        </li>
+{% if request.user.is_authenticated %}
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- left sidebar -->
+<!-- ============================================================== -->
+<div class="nav-left-sidebar sidebar-dark">
+    <div class="menu-list">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav flex-column">
+                    <li class="nav-divider">
+                        Menu
+                    </li>
 
-        {% if request.user.is_authenticated %}
-          <li class="nav-item homepage-section">
-            <a class="btn btn-light btn-sm" href="{% url 'auth_logout' %}" role="button">Log Out</a>
-          </li>
-        {% else %}
-          <li class="nav-item homepage-section">
-            <a class="btn btn-light btn-sm" href="{% url 'auth_login' %}" role="button">Log In</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-primary btn-sm" href="{% url 'registration_register' %}" role="button">Sign Up</a>
-          </li>
-        {% endif %}
+                    <!-- For Admin -->
+                    {% if request.user.is_superuser %}
+                      <li class="nav-item ">
+                          <a class="nav-link active" href="" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Candidates <span class="badge badge-success">6</span></a>
+                          <div id="submenu-1" class="collapse submenu" style="">
+                              <ul class="nav flex-column">
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="{% url 'dashboard:add-candidate' %}">Add Candidate</a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="{% url 'dashboard:show-candidate' %}">Show All Candidates</a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </li>
 
-      </ul>
+                      <li class="nav-item ">
+                          <a class="nav-link active" href="" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Subscriptions <span class="badge badge-success">6</span></a>
+                          <div id="submenu-2" class="collapse submenu" style="">
+                              <ul class="nav flex-column">
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="{% url 'dashboard:add-subscription' %}">Add Subscription</a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="{% url 'dashboard:show-subscription' %}">Show All Subscription</a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </li>
 
+                    <!-- For Other User -->
+                    {% else %}
+                    <li class="nav-item ">
+                        <a class="nav-link active" href="" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
+                        <div id="submenu-1" class="collapse submenu" style="">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'dashboard:user-dashboard' %}">User Dashboard</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Subscriptions</a>
+                        <div id="submenu-2" class="collapse submenu" style="">
+                            <ul class="nav flex-column">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'dashboard:user-dashboard' %}">Your Subscriptions</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'subscription:subscription-view' %}">All Subscriptions</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>Candidates</a>
+                        <div id="submenu-3" class="collapse submenu" style="">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'subscription:view-candidates' %}">Show Candidates</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                  {% endif %}
+                  <!-- Super user ends -->
+
+
+                  <!-- <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}" data-toggle="collapse" aria-expanded="false" data-target="#submenu-" aria-controls="submenu-"><i class="fa fa-fw fa-rocket"></i>Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="" data-toggle="collapse" aria-expanded="false" data-target="#submenu-" aria-controls="submenu-"><i class="fa fa-fw fa-rocket"></i>Services</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="" data-toggle="collapse" aria-expanded="false" data-target="#submenu-" aria-controls="submenu-"><i class="fa fa-fw fa-rocket"></i>Subscriptions</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-" aria-controls="submenu-"><i class="fa fa-fw fa-rocket"></i>About</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-" aria-controls="submenu-"><i class="fa fa-fw fa-rocket"></i>Contact</a>
+                  </li> -->
+
+                </ul>
+            </div>
+        </nav>
     </div>
-  </nav>
+</div>
+<!-- ============================================================== -->
+<!-- end left sidebar -->
+{% endif %}

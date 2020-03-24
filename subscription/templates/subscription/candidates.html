@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Candidate" %}{% endblock %}
+
+{% block content %}
+<!-- ============================================================== -->
+<!-- pageheader  -->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">List of Candidates</h2>
+            <!-- <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p> -->
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- end pageheader  -->
+<!-- ============================================================== -->
+
+<div class="row">
+  <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+    <div class="card">
+        <h5 class="card-header">Candidate Details</h5>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-light">
+                        <tr class="border-0">
+                            <th class="border-0">Serial No.</th>
+                            <th class="border-0">Name</th>
+                            <th class="border-0">Degree</th>
+                            <th class="border-0">Stream</th>
+                            <th class="border-0">Location</th>
+                            <th class="border-0">Resume</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for i in candidates %}
+                        <tr>
+                            <td>{{ forloop.counter }} </td>
+                            <td>{{ i.name }} </td>
+                            <td>{{ i.degree }} </td>
+                            <td>{{ i.stream }} </td>
+                            <td>{{ i.location }} </td>
+                            {% if i.resume %}
+                              <td><a href="{{ i.resume.url }}" target="_blank">View Resume</a></td>
+                            {% else %}
+                              <td><a href="">No File Found</a></td>
+                            {% endif %}
+                        </tr>
+                      {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
