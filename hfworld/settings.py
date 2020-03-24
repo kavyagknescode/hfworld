@@ -97,7 +97,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'hfworld',
         'USER': 'postgres',
-        'PASSWORD': 'Kuntal1994.',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -167,7 +167,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'codenjump@gmail.com'
-EMAIL_HOST_PASSWORD = '3Af3%!E2Bd7r'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 
 # Registration Redux Settings
