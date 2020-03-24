@@ -23,11 +23,16 @@ def dashboard(request):
         return render(request, 'dashboard/admin_dash.html')
     else:
         l1 = []
+        cand_dict = {}
         for num in range(0,paid['count']):
             if paid['items'][num]['email'] == request.user.email and paid['items'][num]['status'] == 'authorized':
                 amount = paid['items'][num]['amount'] / 100
-                l1.append(amount)
-        return render(request, 'dashboard/dashboard.html', {'packs':l1})
+
+                no_resume = Subscription.objects.filter(price = amount)
+                cand_dict[amount] = no_resume
+
+                l1.append([amount,no_resume])
+        return render(request, 'dashboard/dashboard.html', {'packs':cand_dict})
 
 def profile_view(request):
     check_user = UserDetails.objects.filter(user_uname=request.user) # checking if user has filled up details

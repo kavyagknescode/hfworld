@@ -24,6 +24,9 @@ class UserDetails(models.Model):
     def __str__(self):
         return (self.first_name)
 
+    class Meta:
+        verbose_name_plural = 'UserDetails'
+
 
 class CandidateDetails(models.Model):
     name = models.CharField('Full Name', max_length=255)
@@ -31,9 +34,13 @@ class CandidateDetails(models.Model):
     stream = models.CharField('Stream', max_length=255, blank=True)
     location = models.CharField('Current Location of the Candidate', max_length=255, blank=True)
     resume = models.FileField(upload_to = 'candidate/%Y/%m/', help_text="Upload PDF File Only")
+    date_added = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'CandidateDetails'
 
 class Subscription(models.Model):
     """

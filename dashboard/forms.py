@@ -12,6 +12,7 @@ class CandidateDetailsForm(forms.ModelForm):
     class Meta:
         model = CandidateDetails
         fields = ('name', 'degree', 'stream', 'location', 'resume',)
+        exclude = ('date_added',)
 
 class SubscriptionForm(forms.ModelForm):
     class Meta:

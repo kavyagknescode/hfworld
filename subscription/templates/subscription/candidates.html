@@ -30,6 +30,7 @@
                 <table class="table">
                     <thead class="bg-light">
                         <tr class="border-0">
+                            <th class="border-0">Serial No.</th>
                             <th class="border-0">Name</th>
                             <th class="border-0">Degree</th>
                             <th class="border-0">Stream</th>
@@ -40,6 +41,7 @@
                     <tbody>
                       {% for i in candidates %}
                         <tr>
+                            <td>{{ forloop.counter }} </td>
                             <td>{{ i.name }} </td>
                             <td>{{ i.degree }} </td>
                             <td>{{ i.stream }} </td>
@@ -51,7 +53,7 @@
                             {% endif %}
                         </tr>
                       {% endfor %}
-                        
+
                     </tbody>
                 </table>
             </div>

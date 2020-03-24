@@ -63,28 +63,7 @@
                         </li>
                     </ul>
                 </li>
-                <!-- <li class="nav-item dropdown connection">
-                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
-                    <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
-                        <li class="connection-list">
 
-                            <div class="row">
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                    <a href="#" class="connection-item"><img src="assets/images/bitbucket.png" alt=""> <span>Bitbucket</span></a>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                    <a href="#" class="connection-item"><img src="assets/images/mail_chimp.png" alt="" ><span>Mail chimp</span></a>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                    <a href="#" class="connection-item"><img src="assets/images/slack.png" alt="" > <span>Slack</span></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="conntection-footer"><a href="#">More</a></div>
-                        </li>
-                    </ul>
-                </li> -->
               {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown nav-user">
                     <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{% static 'assets/images/avatar-1.jpg' %}" alt="" class="user-avatar-md rounded-circle"></a>
@@ -104,6 +83,7 @@
 <!-- ============================================================== -->
 <!-- end navbar -->
 
+{% if request.user.is_authenticated %}
 <!-- ============================================================== -->
 <!-- ============================================================== -->
 <!-- left sidebar -->
@@ -120,8 +100,6 @@
                     <li class="nav-divider">
                         Menu
                     </li>
-
-                  {% if request.user.is_authenticated %}
 
                     <!-- For Admin -->
                     {% if request.user.is_superuser %}
@@ -192,9 +170,8 @@
                   {% endif %}
                   <!-- Super user ends -->
 
-                  <!-- For Non Logged In User -->
-                  {% else %}
-                  <li class="nav-item">
+
+                  <!-- <li class="nav-item">
                     <a class="nav-link" href="{% url 'home' %}" data-toggle="collapse" aria-expanded="false" data-target="#submenu-" aria-controls="submenu-"><i class="fa fa-fw fa-rocket"></i>Home</a>
                   </li>
                   <li class="nav-item">
@@ -208,8 +185,7 @@
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-" aria-controls="submenu-"><i class="fa fa-fw fa-rocket"></i>Contact</a>
-                  </li>
-                  {% endif %}
+                  </li> -->
 
                 </ul>
             </div>
@@ -218,3 +194,4 @@
 </div>
 <!-- ============================================================== -->
 <!-- end left sidebar -->
+{% endif %}
