@@ -30,6 +30,7 @@
                 <table class="table">
                     <thead class="bg-light">
                         <tr class="border-0">
+                            <th class="border-0">Sl No.</th>
                             <th class="border-0">Cost (INR)</th>
                             <th class="border-0">Access to Resume (No.)</th>
                             <th class="border-0">Candidates</th>
@@ -38,6 +39,7 @@
                     <tbody>
                       {% for price,resume in packs.items %}
                         <tr>
+                            <td>{{ forloop.counter }} </td>
                             <td>{{ price }} </td>
                             <td>{{ resume }} </td>
                             <td><a href="{% url 'subscription:view-candidates' %}">View Candidates</a></td>
