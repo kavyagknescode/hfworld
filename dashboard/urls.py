@@ -16,5 +16,6 @@ urlpatterns = [
 
     path('add-subscription/', views.add_subscription_view, name='add-subscription'),
     path('show-subscription/', views.show_subscription_view, name='show-subscription'),
+    path('edit-subscription/id=<int:id>', views.edit_subscription, name='edit-subscription'),
 
 ]
