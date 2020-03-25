@@ -9,6 +9,11 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
+try:
+    from .local import *
+except:
+    pass
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -88,21 +93,6 @@ WSGI_APPLICATION = 'hfworld.wsgi.application'
 #     }
 # }
 
-# Local Settings
-DEBUG = True
-ALLOWED_HOSTS = ['*']
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'hfworld',
-        'USER': 'postgres',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-
 
 # Production
 # DEBUG = False
@@ -163,12 +153,6 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'codenjump@gmail.com'
-EMAIL_HOST_PASSWORD = ''
-EMAIL_PORT = 587
 
 # Registration Redux Settings
 REGISTRATION_FORM = 'accounts.forms.MyRegForm'
