@@ -74,6 +74,7 @@ def edit_user_details(request,id):
 
 def save_edited_details(request,id):
     new_data = UserDetails.objects.get(id=id)
+    base_model_data = User.objects.get(username=request.user)
     if request.method == 'POST':
         new_data.user_uname = request.user
         new_data.first_name = request.POST['fname']
@@ -81,12 +82,16 @@ def save_edited_details(request,id):
         new_data.email = request.POST['email']
         new_data.phone = request.POST['phone']
 
+        # For django User model
+        base_model_data.email = request.POST['email']
+
         try:
             validate_email(new_data.email)
         except ValidationError:
             messages.error(request, "Enter a Valid Email")
 
         new_data.save()
+        base_model_data.save()
         return redirect('dashboard:user-dashboard')
     else:
         return redirect('dashboard:user-dashboard')
@@ -134,3 +139,8 @@ def add_subscription_view(request):
 def show_subscription_view(request):
     subscriptions = Subscription.objects.all()
     return render(request, 'dashboard/show_subscription.html', {'subscriptions':subscriptions})
+
+
+def edit_subscription(request, id):
+    sub = Subscription.objects.get(id=id)
+    return render(request, 'dashboard/edit_subscription.html', {'sub':sub},)

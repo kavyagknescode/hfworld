@@ -38,7 +38,7 @@
                   <li>Unlimited Access to Our Blog</li>
                   <li>Price &#8377 {{ i.price }}</li>
                 </ul>
-                  <a href="#"><button type="button" class="btn btn-lg btn-primary">Edit</button></a>
+                  <a href="{% url 'dashboard:edit-subscription' i.id %}"><button type="button" class="btn btn-lg btn-primary">Edit</button></a>
               </div>
             </div>
           </div>
