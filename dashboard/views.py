@@ -4,35 +4,69 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
-
+from django.db import connection
 from dashboard.models import UserDetails, CandidateDetails, Subscription
 from dashboard.forms import UserDetailsForm, CandidateDetailsForm, SubscriptionForm
 
 import razorpay
 
+cursor = connection.cursor()
 #kuntal.karmakar19@gmail.com account
 client = razorpay.Client(auth=("rzp_test_0bogBh0wb4NS1C", "AioV8HdqfiSWWbUepUjj9BL2"))
 paid = client.payment.all()
 
 # Create your views here.
 def home(request):
-    return render(request, 'dashboard/home.html')
+    if request.user.is_authenticated:
+        return redirect('dashboard:user-dashboard')
+    else:
+        return render(request, 'dashboard/home.html')
 
 def dashboard(request):
     if request.user.is_superuser:
         return render(request, 'dashboard/admin_dash.html')
+
     else:
-        l1 = []
-        cand_dict = {}
-        for num in range(0,paid['count']):
-            if paid['items'][num]['email'] == request.user.email and paid['items'][num]['status'] == 'authorized':
-                amount = paid['items'][num]['amount'] / 100
+        check_user = UserDetails.objects.filter(user_uname=request.user) # checking if user has filled up details
 
-                no_resume = Subscription.objects.filter(price = amount)
-                cand_dict[amount] = no_resume
+        if check_user:
+            print('has data')
 
-                l1.append([amount,no_resume])
-        return render(request, 'dashboard/dashboard.html', {'packs':cand_dict})
+            print('User Dash')
+            l1 = []
+            for num in range(0,paid['count']):
+                # print(paid['items'][num]['email'])
+                # print(request.user.email)
+                if paid['items'][num]['email'] == request.user.email and paid['items'][num]['status'] == 'authorized':
+
+                    print('Authorised')
+
+                    amount = paid['items'][num]['amount'] / 100
+                    print(amount)
+                    # raw_query = 'SELECT no_resume from dashboard.Subscription where price = %s'
+                    # resumes = Subscription.objects.raw(raw_query, params=[amount,])
+                    # print(resumes)
+                    # number_of_resume = cursor.execute('SELECT no_resume from dashboard_subscription where price = %s', [amount])
+                    # number_of_resume = Subscription.objects.select_related(no_resume).get(price=amount)
+                    # print(number_of_resume)
+                    # number_of_resume = sub_obj.no_resume
+                    # cand_dict[amount] = no_resume
+                    # no_resume = 0
+
+                    sub_obj = Subscription.objects.filter(price=amount).all()
+                    print(sub_obj)
+                    no_resume = 0
+                    l1.append([amount,no_resume])
+                    # print(l1[num][0])
+                    # print(l1[num][1])
+                return render(request, 'dashboard/dashboard.html', {'packs':l1})
+
+        else:
+            """
+            Redirect User to Fill up Profile
+            """
+            form = UserDetailsForm()
+            return render(request, 'dashboard/add_profile.html', {'form':form})
 
 def profile_view(request):
     check_user = UserDetails.objects.filter(user_uname=request.user) # checking if user has filled up details

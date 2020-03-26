@@ -40,6 +40,7 @@ def view_candidates(request):
             For paid users
             """
             if paid['items'][num]['email'] == request.user.email and paid['items'][num]['status'] == 'authorized':
+                print(request.user.email)
                 # print(client.payment.fetch(paid['items'][num]['id']))
                 # # Capture amount in paise
                 # if paid['items'][num]['captured'] == False :
@@ -67,3 +68,6 @@ def SubscribedPack(request):
             sub_pack = l1.append()
             print(l1)
     return render(request, 'dashboard/dashboard.html', {'packs':l1})
+
+def payment_thanks(request):
+    return render(request, 'subscription/payment_thanks.html')

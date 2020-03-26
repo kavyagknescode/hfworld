@@ -6,7 +6,7 @@
       <div class="col-md-10">
         <h3 class="pay-heading">Please Pay in order to Proceed</h3>
         <div class="pay">
-          <form action="#" method="POST">
+          <form action="{% url 'subscription:payment-greeting' %}" method="POST">
             {% csrf_token %}
             <!-- Note that the amount is in paise = 50 INR -->
               <script
