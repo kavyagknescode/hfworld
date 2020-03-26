@@ -35,31 +35,22 @@ def dashboard(request):
             print('User Dash')
             l1 = []
             for num in range(0,paid['count']):
-                # print(paid['items'][num]['email'])
-                # print(request.user.email)
+
                 if paid['items'][num]['email'] == request.user.email and paid['items'][num]['status'] == 'authorized':
 
-                    print('Authorised')
-
                     amount = paid['items'][num]['amount'] / 100
-                    print(amount)
-                    # raw_query = 'SELECT no_resume from dashboard.Subscription where price = %s'
-                    # resumes = Subscription.objects.raw(raw_query, params=[amount,])
-                    # print(resumes)
-                    # number_of_resume = cursor.execute('SELECT no_resume from dashboard_subscription where price = %s', [amount])
-                    # number_of_resume = Subscription.objects.select_related(no_resume).get(price=amount)
-                    # print(number_of_resume)
-                    # number_of_resume = sub_obj.no_resume
-                    # cand_dict[amount] = no_resume
-                    # no_resume = 0
 
-                    sub_obj = Subscription.objects.filter(price=amount).all()
-                    print(sub_obj)
-                    no_resume = 0
-                    l1.append([amount,no_resume])
-                    # print(l1[num][0])
-                    # print(l1[num][1])
-                return render(request, 'dashboard/dashboard.html', {'packs':l1})
+                    # Gettign the no of resumes based on price fetched from razorpay
+                    sub_obj = Subscription.objects.filter(price=amount).values('no_resume')
+
+                    # it stores the values in a dictionary, so looping through
+                    for i in sub_obj:
+                        resumes = i.get("no_resume")
+                        l1.append([amount,resumes])
+
+                    print(l1[num][0])
+                    print(l1[num][1])
+            return render(request, 'dashboard/dashboard.html', {'packs':l1})
 
         else:
             """
@@ -177,4 +168,5 @@ def show_subscription_view(request):
 
 def edit_subscription(request, id):
     sub = Subscription.objects.get(id=id)
+    print(sub.no_resume)
     return render(request, 'dashboard/edit_subscription.html', {'sub':sub},)
