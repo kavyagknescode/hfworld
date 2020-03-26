@@ -18,9 +18,13 @@ def subscription_view(request):
 @login_required
 def buy_subscription(request,amt):
     user = UserDetails.objects.get(user_uname=request.user)
+    # Gettign the Subscription details based on price fetched from razorpay
+    sub_obj = Subscription.objects.filter(price=amt).values()
+    print(sub_obj)
+
     # Converting to Paise for Razorpay
     amt = amt*100
-    return render(request, 'subscription/payment.html',{'user':user, 'amt':amt,})
+    return render(request, 'subscription/payment.html',{'user':user, 'subscription':sub_obj, 'amt':amt,})
 
 def view_candidates(request):
     """

@@ -167,6 +167,13 @@ def show_subscription_view(request):
 
 
 def edit_subscription(request, id):
-    sub = Subscription.objects.get(id=id)
-    print(sub.no_resume)
-    return render(request, 'dashboard/edit_subscription.html', {'sub':sub},)
+    sub_data = Subscription.objects.get(id=id)
+
+    if request.method == "POST":
+        sub_data.pack_name = request.POST['pack_name']
+        sub_data.price = request.POST['price']
+        sub_data.no_resume = request.POST['resume']
+        sub_data.save()
+        return redirect('dashboard:show-subscription')
+
+    return render(request, 'dashboard/edit_subscription.html', {'sub':sub_data},)
