@@ -4,35 +4,60 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
-
+from django.db import connection
 from dashboard.models import UserDetails, CandidateDetails, Subscription
 from dashboard.forms import UserDetailsForm, CandidateDetailsForm, SubscriptionForm
 
 import razorpay
 
+cursor = connection.cursor()
 #kuntal.karmakar19@gmail.com account
 client = razorpay.Client(auth=("rzp_test_0bogBh0wb4NS1C", "AioV8HdqfiSWWbUepUjj9BL2"))
 paid = client.payment.all()
 
 # Create your views here.
 def home(request):
-    return render(request, 'dashboard/home.html')
+    if request.user.is_authenticated:
+        return redirect('dashboard:user-dashboard')
+    else:
+        return render(request, 'dashboard/home.html')
 
 def dashboard(request):
     if request.user.is_superuser:
         return render(request, 'dashboard/admin_dash.html')
+
     else:
-        l1 = []
-        cand_dict = {}
-        for num in range(0,paid['count']):
-            if paid['items'][num]['email'] == request.user.email and paid['items'][num]['status'] == 'authorized':
-                amount = paid['items'][num]['amount'] / 100
+        check_user = UserDetails.objects.filter(user_uname=request.user) # checking if user has filled up details
 
-                no_resume = Subscription.objects.filter(price = amount)
-                cand_dict[amount] = no_resume
+        if check_user:
+            print('has data')
 
-                l1.append([amount,no_resume])
-        return render(request, 'dashboard/dashboard.html', {'packs':cand_dict})
+            print('User Dash')
+            l1 = []
+            for num in range(0,paid['count']):
+
+                if paid['items'][num]['email'] == request.user.email and paid['items'][num]['status'] == 'authorized':
+
+                    amount = paid['items'][num]['amount'] / 100
+
+                    # Gettign the no of resumes based on price fetched from razorpay
+                    sub_obj = Subscription.objects.filter(price=amount).values('no_resume')
+
+                    # it stores the values in a dictionary, so looping through
+                    for i in sub_obj:
+                        resumes = i.get("no_resume")
+                        l1.append([amount,resumes])
+
+                    print(l1[num][0])
+                    print(l1[num][1])
+            return render(request, 'dashboard/dashboard.html', {'packs':l1})
+
+        else:
+            """
+            Redirect User to Fill up Profile
+            """
+            form = UserDetailsForm()
+            return render(request, 'dashboard/add_profile.html', {'form':form})
 
 def profile_view(request):
     check_user = UserDetails.objects.filter(user_uname=request.user) # checking if user has filled up details
@@ -75,12 +100,23 @@ def edit_user_details(request,id):
 def save_edited_details(request,id):
     new_data = UserDetails.objects.get(id=id)
     base_model_data = User.objects.get(username=request.user)
+
     if request.method == 'POST':
         new_data.user_uname = request.user
         new_data.first_name = request.POST['fname']
         new_data.last_name = request.POST['lname']
         new_data.email = request.POST['email']
         new_data.phone = request.POST['phone']
+
+        new_data.inv_address = request.POST['inv_adrs']
+        new_data.inv_city = request.POST['inv_city']
+        new_data.inv_state = request.POST['inv_state']
+        new_data.inv_pin = request.POST['inv_pin']
+
+        new_data.del_address = request.POST['del_adrs']
+        new_data.del_city = request.POST['del_city']
+        new_data.del_state = request.POST['del_state']
+        new_data.del_pin = request.POST['del_pin']
 
         # For django User model
         base_model_data.email = request.POST['email']
@@ -89,12 +125,16 @@ def save_edited_details(request,id):
             validate_email(new_data.email)
         except ValidationError:
             messages.error(request, "Enter a Valid Email")
+            return redirect('dashboard:edit-profile', id=id)
 
         new_data.save()
         base_model_data.save()
-        return redirect('dashboard:user-dashboard')
+
+        messages.success(request, 'Profile Updated Successfully')
+        return redirect('dashboard:user-profile')
     else:
-        return redirect('dashboard:user-dashboard')
+        # For Non POST Method
+        return redirect('dashboard:edit-profile', id=id)
 
 def add_candidate_view(request):
     form = CandidateDetailsForm()
@@ -142,5 +182,13 @@ def show_subscription_view(request):
 
 
 def edit_subscription(request, id):
-    sub = Subscription.objects.get(id=id)
-    return render(request, 'dashboard/edit_subscription.html', {'sub':sub},)
+    sub_data = Subscription.objects.get(id=id)
+
+    if request.method == "POST":
+        sub_data.pack_name = request.POST['pack_name']
+        sub_data.price = request.POST['price']
+        sub_data.no_resume = request.POST['resume']
+        sub_data.save()
+        return redirect('dashboard:show-subscription')
+
+    return render(request, 'dashboard/edit_subscription.html', {'sub':sub_data},)
