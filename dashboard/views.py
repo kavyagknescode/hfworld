@@ -100,12 +100,23 @@ def edit_user_details(request,id):
 def save_edited_details(request,id):
     new_data = UserDetails.objects.get(id=id)
     base_model_data = User.objects.get(username=request.user)
+
     if request.method == 'POST':
         new_data.user_uname = request.user
         new_data.first_name = request.POST['fname']
         new_data.last_name = request.POST['lname']
         new_data.email = request.POST['email']
         new_data.phone = request.POST['phone']
+
+        new_data.inv_address = request.POST['inv_adrs']
+        new_data.inv_city = request.POST['inv_city']
+        new_data.inv_state = request.POST['inv_state']
+        new_data.inv_pin = request.POST['inv_pin']
+
+        new_data.del_address = request.POST['del_adrs']
+        new_data.del_city = request.POST['del_city']
+        new_data.del_state = request.POST['del_state']
+        new_data.del_pin = request.POST['del_pin']
 
         # For django User model
         base_model_data.email = request.POST['email']
@@ -114,12 +125,16 @@ def save_edited_details(request,id):
             validate_email(new_data.email)
         except ValidationError:
             messages.error(request, "Enter a Valid Email")
+            return redirect('dashboard:edit-profile', id=id)
 
         new_data.save()
         base_model_data.save()
-        return redirect('dashboard:user-dashboard')
+
+        messages.success(request, 'Profile Updated Successfully')
+        return redirect('dashboard:user-profile')
     else:
-        return redirect('dashboard:user-dashboard')
+        # For Non POST Method
+        return redirect('dashboard:edit-profile', id=id)
 
 def add_candidate_view(request):
     form = CandidateDetailsForm()
