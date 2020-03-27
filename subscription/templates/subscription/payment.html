@@ -6,7 +6,7 @@
       <div class="col-md-10">
         <h3 class="pay-heading">Please Pay in order to Proceed</h3>
         <div class="pay">
-          <form action="#" method="POST">
+          <form action="{% url 'subscription:payment-greeting' %}" method="POST">
             {% csrf_token %}
             <!-- Note that the amount is in paise = 50 INR -->
               <script
@@ -28,5 +28,37 @@
         </div>
       </div>
     </div>
+
+    <div class="row pt-3">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">Subscriptions Details</h5>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="bg-light">
+                            <tr class="border-0">
+                              <th class="border-0">Subscription</th>
+                                <th class="border-0">Cost (INR)</th>
+                                <th class="border-0">Access to Resume (No.)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for i in subscription %}
+                            <tr>
+                                <td>{{ i.pack_name }} </td>
+                                <td>{{ i.price }} </td>
+                                <td>{{ i.no_resume }} </td>
+                            </tr>
+                          {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
   </div>
 {% endblock %}

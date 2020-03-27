@@ -19,11 +19,35 @@
             <label for="lname">Last Name</label>
             <input class="form-control" id="lname" name="lname" type="text" value="{{user_data.last_name}}">
 
-            <label for="tagline">Email</label>
+            <label for="email">Email</label>
             <input class="form-control" id="email" name="email" type="text" value="{{user_data.email}}" required>
 
-            <label for="tagline">Contact Number</label>
+            <label for="phone">Contact Number</label>
             <input class="form-control" id="phone" name="phone" type="text" value="{{user_data.phone}}" required>
+
+            <label for="inv_adrs">Invoice Address</label>
+            <input class="form-control" id="inv_adrs" name="inv_adrs" type="text" value="{{user_data.inv_address}}">
+
+            <label for="inv_city">Invoice City</label>
+            <input class="form-control" id="inv_city" name="inv_city" type="text" value="{{user_data.inv_city}}">
+
+            <label for="inv_state">Invoice State</label>
+            <input class="form-control" id="inv_state" name="inv_state" type="text" value="{{user_data.inv_state}}">
+
+            <label for="inv_pin">Invoice Pin</label>
+            <input class="form-control" id="inv_pin" name="inv_pin" type="number" value="{{user_data.inv_pin}}" maxlength="6">
+
+            <label for="del_adrs">Delivery Address</label>
+            <input class="form-control" id="del_adrs" name="del_adrs" type="text" value="{{user_data.del_address}}">
+
+            <label for="del_city">Delivery City</label>
+            <input class="form-control" id="del_city" name="del_city" type="text" value="{{user_data.del_city}}">
+
+            <label for="del_state">Delivery State</label>
+            <input class="form-control" id="del_state" name="del_state" type="text" value="{{user_data.del_state}}">
+
+            <label for="del_pin">Delivery Pin</label>
+            <input class="form-control" id="del_pin" name="del_pin" type="number" value="{{user_data.del_pin}}" maxlength="6">
 
           </div>
           <button type="submit" class="btn btn-md btn-success">Save</button>

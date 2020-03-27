@@ -18,9 +18,13 @@ def subscription_view(request):
 @login_required
 def buy_subscription(request,amt):
     user = UserDetails.objects.get(user_uname=request.user)
+    # Gettign the Subscription details based on price fetched from razorpay
+    sub_obj = Subscription.objects.filter(price=amt).values()
+    print(sub_obj)
+
     # Converting to Paise for Razorpay
     amt = amt*100
-    return render(request, 'subscription/payment.html',{'user':user, 'amt':amt,})
+    return render(request, 'subscription/payment.html',{'user':user, 'subscription':sub_obj, 'amt':amt,})
 
 def view_candidates(request):
     """
@@ -40,6 +44,7 @@ def view_candidates(request):
             For paid users
             """
             if paid['items'][num]['email'] == request.user.email and paid['items'][num]['status'] == 'authorized':
+                print(request.user.email)
                 # print(client.payment.fetch(paid['items'][num]['id']))
                 # # Capture amount in paise
                 # if paid['items'][num]['captured'] == False :
@@ -67,3 +72,6 @@ def SubscribedPack(request):
             sub_pack = l1.append()
             print(l1)
     return render(request, 'dashboard/dashboard.html', {'packs':l1})
+
+def payment_thanks(request):
+    return render(request, 'subscription/payment_thanks.html')

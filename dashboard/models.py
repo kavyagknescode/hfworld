@@ -47,7 +47,7 @@ class Subscription(models.Model):
     Add Subscription Pack by Admin
     """
     pack_name = models.CharField('Subscription Name', max_length=255)
-    price = models.CharField('Subscription Price', max_length=255)
+    price = models.PositiveIntegerField('Subscription Price',)
     no_resume = models.IntegerField('No. of Resume User can Access')
 
     def __str__(self):
