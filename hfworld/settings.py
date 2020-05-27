@@ -86,17 +86,17 @@ WSGI_APPLICATION = 'hfworld.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 
 # Production
-# DEBUG = False
-# ALLOWED_HOSTS = ['*']
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 # DATABASES = {
 #     'default': {
@@ -161,6 +161,12 @@ REGISTRATION_AUTO_LOGIN = False # Automatically log the user in
 LOGIN_REDIRECT_URL = '/dashboard'
 REGISTRATION_DEFAULT_FROM_EMAIL = 'codenjump@gmail.com'
 
+# Email Configuration
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'kavya.gk@gmail.com'
+EMAIL_HOST_PASSWORD = '1234@gkgk'
+EMAIL_PORT = 587
 # Crispy form
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
